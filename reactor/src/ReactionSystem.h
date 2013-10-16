@@ -23,6 +23,7 @@ namespace reactor{
 
     const std::vector<double> GetRatesOfChange() const; // Given the current species concentrations, return the rates of change
     const std::vector<double> GetConcentrations() const ; // return array of species concentrations
+    void SetConcentrations(const std::vector<double> & );
 
   private:
     std::vector< Reaction * > reactions;
