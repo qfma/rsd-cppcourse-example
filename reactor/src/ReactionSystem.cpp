@@ -69,3 +69,8 @@ void reactor::ReactionSystem::SetConcentrations(const std::vector<double> & conc
 		each_concentration++;
 	}
 }
+
+ void reactor::ReactionSystem::GetRatesGivenConcentrations(const std::vector<double> & concentrations, std::vector<double> & rates){
+ 	SetConcentrations(concentrations);
+ 	rates=GetRatesOfChange();
+ }
