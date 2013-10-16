@@ -10,6 +10,9 @@ reactor::Species & reactor::ReactionSystem::NewSpecies(const std::string &name){
 	return *species.back();
 }
 
-void reactor::ReactionSystem::AddReaction(reactor::Reaction &reaction){
-	reactions.push_back(&reaction);
+reactor::Reaction & reactor::ReactionSystem::NewReaction(double rate) 
+{ 
+	reactions.push_back(new Reaction(rate));
+	return *reactions.back();
 }
+

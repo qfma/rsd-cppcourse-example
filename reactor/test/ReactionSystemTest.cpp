@@ -7,8 +7,8 @@ class ReactionSystemTest: public ::testing::Test {
 protected:
 	ReactionSystem emptyReactionSystem;
 	ReactionSystem myReactionSystem;
-	Reaction forward;
-	Reaction reverse;
+	Reaction &forward;
+	Reaction &reverse;
 	Species &calcium;
 	Species &carbon;
 	Species &oxygen;
@@ -16,8 +16,8 @@ protected:
 
 	ReactionSystemTest():
 		emptyReactionSystem(),
-		forward(9.0),
-		reverse(11.0), 
+		forward(myReactionSystem.NewReaction(9.0)),
+		reverse(myReactionSystem.NewReaction(11.0)),
 		calcium(myReactionSystem.NewSpecies("Ca")),
 		oxygen(myReactionSystem.NewSpecies("O")),
 		carbon(myReactionSystem.NewSpecies("C")),
@@ -41,17 +41,25 @@ protected:
 };
 
 TEST_F(ReactionSystemTest, ReactionSystemCanHaveReaction) { // First argument is test group, second is test name
-  emptyReactionSystem.AddReaction(forward);
+  Reaction & new_forward= emptyReactionSystem.NewReaction(9.0);
   EXPECT_EQ(1, emptyReactionSystem.GetReactions().size());
-  EXPECT_EQ(&forward, emptyReactionSystem.GetReactions()[0]);
+  EXPECT_EQ(&new_forward, emptyReactionSystem.GetReactions()[0]);
 }
 
 TEST_F(ReactionSystemTest, ReactionSystemCanHaveMultipleReactions) { 
-  emptyReactionSystem.AddReaction(forward);
-  emptyReactionSystem.AddReaction(reverse);
+  Reaction & new_forward = emptyReactionSystem.NewReaction(9.0);
+  Reaction & new_back = emptyReactionSystem.NewReaction(11.0);
   EXPECT_EQ(2, emptyReactionSystem.GetReactions().size());
-  EXPECT_EQ(&forward, emptyReactionSystem.GetReactions()[0]);
-  EXPECT_EQ(&reverse, emptyReactionSystem.GetReactions()[1]);
+  EXPECT_EQ(&new_forward, emptyReactionSystem.GetReactions()[0]);
+  EXPECT_EQ(&new_back, emptyReactionSystem.GetReactions()[1]);
+}
+
+TEST_F(ReactionSystemTest, ReactionSystemReactionCanBeModifiedByReference){
+  Reaction & new_forward = emptyReactionSystem.NewReaction(9.0);
+  Species & new_calcium = emptyReactionSystem.NewSpecies("Ca");
+  EXPECT_EQ(0, emptyReactionSystem.GetReactions()[0]->GetReactants().size());
+  new_forward.AddReactant(new_calcium);
+  EXPECT_EQ(&new_calcium, emptyReactionSystem.GetReactions()[0]->GetReactants()[0]);
 }
 
 TEST_F(ReactionSystemTest, ReactionSystemCanAddSpecies){

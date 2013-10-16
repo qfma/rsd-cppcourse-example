@@ -14,7 +14,7 @@ namespace reactor{
   public:
     ReactionSystem(); // Declare constructor function.
 
-    void AddReaction(Reaction & reaction);
+    Reaction & NewReaction(double rate);
     const std::vector<Reaction *> & GetReactions() const {return reactions;}
 
     Species & NewSpecies(const std::string &name);
