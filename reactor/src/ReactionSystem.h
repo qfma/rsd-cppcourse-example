@@ -13,6 +13,7 @@ namespace reactor{
   {   
   public:
     ReactionSystem(); // Declare constructor function.
+    ~ReactionSystem(); // Delete the reaction system
 
     Reaction & NewReaction(double rate);
     const std::vector<Reaction *> & GetReactions() const {return reactions;}
