@@ -21,6 +21,8 @@ namespace reactor{
     Species & NewSpecies(const std::string &name);
     const std::vector<Species *> & GetSpecies() const { return species;}
 
+    const std::vector<double> GetRatesOfChange() const; // Given the current species concentrations, return the rates of change
+
   private:
     std::vector< Reaction * > reactions;
     std::vector< Species * > species;

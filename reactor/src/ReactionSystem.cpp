@@ -26,3 +26,22 @@ reactor::ReactionSystem::~ReactionSystem(){
 		delete *each_reaction;
 	}
 }
+
+const std::vector<double> reactor::ReactionSystem::GetRatesOfChange() const {
+	std::vector<double> rates_of_change;
+	for (std::vector<Species *>::const_iterator each_species=species.begin();each_species!=species.end();each_species++)
+	{
+		(*each_species)->ReSetRateOfChange();
+	}
+
+	for (std::vector<Reaction *>::const_iterator each_reaction=reactions.begin();each_reaction!=reactions.end();each_reaction++)
+	{
+		(*each_reaction)->ContributeToRatesOfChange();
+	}
+
+	for (std::vector<Species *>::const_iterator each_species=species.begin();each_species!=species.end();each_species++)
+	{
+		rates_of_change.push_back((*each_species)->GetRateOfChange());
+	}
+	return rates_of_change;
+}

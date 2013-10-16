@@ -78,6 +78,15 @@ TEST_F(ReactionSystemTest, ReactionSystemSpeciesCanBeModifiedByReference){
 	EXPECT_EQ(2.0,emptyReactionSystem.GetSpecies()[0]->GetConcentration());
 }
 
+TEST_F(ReactionSystemTest, ReactionSystemCanDetermineRatesOfChange){
+	std::vector<double> rates_of_change;
+	rates_of_change.push_back(-9.0*2.0*3.0*5.0+11.0*7.0); //calcium
+	rates_of_change.push_back(-9.0*2.0*3.0*5.0+11.0*7.0); //carbon
+	rates_of_change.push_back(-9.0*2.0*3.0*5.0+11.0*7.0); //oxygen
+	rates_of_change.push_back(9.0*2.0*3.0*5.0-11.0*7.0); //calcium carbonate
+	EXPECT_EQ(rates_of_change,myReactionSystem.GetRatesOfChange());
+}
+
 int main(int argc, char **argv) { // A main function scaffold to call the tests
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
