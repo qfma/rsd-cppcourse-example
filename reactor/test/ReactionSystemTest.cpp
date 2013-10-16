@@ -62,6 +62,15 @@ TEST_F(ReactionSystemTest, ReactionSystemReactionCanBeModifiedByReference){
   EXPECT_EQ(&new_calcium, emptyReactionSystem.GetReactions()[0]->GetReactants()[0]);
 }
 
+TEST_F(ReactionSystemTest, ReactionSystemCanGiveConcentrations) {
+	std::vector<double> expectation;
+	expectation.push_back(2.0);
+	expectation.push_back(3.0);
+	expectation.push_back(5.0);
+	expectation.push_back(7.0);
+	EXPECT_EQ(expectation,myReactionSystem.GetConcentrations());
+}
+
 TEST_F(ReactionSystemTest, ReactionSystemCanAddSpecies){
 	Species & newCalcium = emptyReactionSystem.NewSpecies("Ca");
 	Species & newCarbon = emptyReactionSystem.NewSpecies("C");

@@ -45,3 +45,16 @@ const std::vector<double> reactor::ReactionSystem::GetRatesOfChange() const {
 	}
 	return rates_of_change;
 }
+
+const std::vector< double> reactor::ReactionSystem::GetConcentrations() const {
+	std::vector<double> result;
+	// we are not pre-allocating, this will be slow.
+	// Idea is to try to make a maximally-readable solution without thinking about speed first.
+
+	for (std::vector<Species *>::const_iterator each_species=species.begin();each_species!=species.end();each_species++)
+	{
+		result.push_back((*each_species)->GetConcentration());
+	}
+
+	return result;
+}
