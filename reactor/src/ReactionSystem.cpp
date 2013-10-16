@@ -8,3 +8,7 @@ reactor::ReactionSystem::ReactionSystem()
 void reactor::ReactionSystem::AddSpecies(reactor::Species &new_species){
 	species.push_back(&new_species);
 }
+
+void reactor::ReactionSystem::AddReaction(reactor::Reaction &reaction){
+	reactions.push_back(&reaction);
+}
