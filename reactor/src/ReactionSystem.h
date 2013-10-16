@@ -13,9 +13,11 @@ namespace reactor{
   {   
   public:
     ReactionSystem(); // Declare constructor function.
+    void AddSpecies(Species & species);
+    const std::vector<Species *> & GetSpecies() const { return species;}
 
   private:
-
+    std::vector< Species * > species;
   };
 }
 
