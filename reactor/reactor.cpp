@@ -3,6 +3,7 @@
 #include <iostream> //Include standard library file which provides input and output capabilities ("print statements") 
 
 #include "Species.h" // Include our own library file for describing a reaction system
+#include <boost/numeric/odeint.hpp> // Include ODE solver library, just to check our build system has picked it up ok.
 
 int main(int argument_count, char ** command_line_arguments) // Define the main function, which is the entry point to the program.
 { // C++ uses braces to start and end sections of code.

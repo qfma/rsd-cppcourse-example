@@ -2,6 +2,13 @@ cmake_minimum_required (VERSION 2.8) # We are using the cmake build tool, with f
 project (Reactor)
 include_directories(src) # This location "src" is added to the list of locations 
                          # which are searched when resolving #include statements in C/C++
+
+set(Boost_ADDITIONAL_VERSIONS 1.53.0 1.54.0 1.53 1.54) # We want to use the boost ODEINT library to solve ODE systems
+find_package(Boost 1.53.0 )
+if(Boost_FOUND)
+	include_directories(${Boost_INCLUDE_DIRS})
+endif()
+
 add_subdirectory(src) # Look in the CMakeLists.txt file for explanation on how to build our library code
 add_executable(reactor reactor.cpp) # The executable to make is 
 									 # called "reactor" and depends on the listed source files and libraries
