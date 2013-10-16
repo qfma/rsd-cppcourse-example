@@ -5,8 +5,9 @@ reactor::ReactionSystem::ReactionSystem()
   // do nothing
 }
 
-void reactor::ReactionSystem::AddSpecies(reactor::Species &new_species){
-	species.push_back(&new_species);
+reactor::Species & reactor::ReactionSystem::NewSpecies(const std::string &name){
+	species.push_back(new Species(name));
+	return *species.back();
 }
 
 void reactor::ReactionSystem::AddReaction(reactor::Reaction &reaction){

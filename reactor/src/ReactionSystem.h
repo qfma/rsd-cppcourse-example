@@ -17,7 +17,7 @@ namespace reactor{
     void AddReaction(Reaction & reaction);
     const std::vector<Reaction *> & GetReactions() const {return reactions;}
 
-    void AddSpecies(Species & species);
+    Species & NewSpecies(const std::string &name);
     const std::vector<Species *> & GetSpecies() const { return species;}
 
   private:

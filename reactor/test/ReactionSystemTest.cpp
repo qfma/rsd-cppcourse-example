@@ -6,21 +6,22 @@ using namespace reactor;
 class ReactionSystemTest: public ::testing::Test {
 protected:
 	ReactionSystem emptyReactionSystem;
+	ReactionSystem myReactionSystem;
 	Reaction forward;
 	Reaction reverse;
-	Species calcium;
-	Species carbon;
-	Species oxygen;
-	Species calcium_carbonate;
+	Species &calcium;
+	Species &carbon;
+	Species &oxygen;
+	Species &calcium_carbonate;
 
 	ReactionSystemTest():
 		emptyReactionSystem(),
 		forward(9.0),
 		reverse(11.0), 
-		calcium("Ca"),
-		oxygen("O"),
-		carbon("C"),
-		calcium_carbonate("CaCO3")
+		calcium(myReactionSystem.NewSpecies("Ca")),
+		oxygen(myReactionSystem.NewSpecies("O")),
+		carbon(myReactionSystem.NewSpecies("C")),
+		calcium_carbonate(myReactionSystem.NewSpecies("CaCO3"))
 	{
 		forward.AddReactant(calcium);
 		forward.AddReactant(carbon);
@@ -54,19 +55,19 @@ TEST_F(ReactionSystemTest, ReactionSystemCanHaveMultipleReactions) {
 }
 
 TEST_F(ReactionSystemTest, ReactionSystemCanAddSpecies){
-	emptyReactionSystem.AddSpecies(calcium);
-	emptyReactionSystem.AddSpecies(oxygen);
+	Species & newCalcium = emptyReactionSystem.NewSpecies("Ca");
+	Species & newCarbon = emptyReactionSystem.NewSpecies("C");
 	ASSERT_EQ(2,emptyReactionSystem.GetSpecies().size());
-	EXPECT_EQ(&calcium,emptyReactionSystem.GetSpecies()[0]);
-	EXPECT_EQ(&oxygen,emptyReactionSystem.GetSpecies()[1]);
+	EXPECT_EQ(&newCalcium,emptyReactionSystem.GetSpecies()[0]);
+	EXPECT_EQ(&newCarbon,emptyReactionSystem.GetSpecies()[1]);
 
 }
 
 TEST_F(ReactionSystemTest, ReactionSystemSpeciesCanBeModifiedByReference){
-	emptyReactionSystem.AddSpecies(calcium);
+	Species & newCalcium = emptyReactionSystem.NewSpecies("Ca");
+	EXPECT_EQ(0,emptyReactionSystem.GetSpecies()[0]->GetConcentration());
+	newCalcium.SetConcentration(2.0);
 	EXPECT_EQ(2.0,emptyReactionSystem.GetSpecies()[0]->GetConcentration());
-	calcium.SetConcentration(11.0);
-	EXPECT_EQ(11.0,emptyReactionSystem.GetSpecies()[0]->GetConcentration());
 }
 
 int main(int argc, char **argv) { // A main function scaffold to call the tests
